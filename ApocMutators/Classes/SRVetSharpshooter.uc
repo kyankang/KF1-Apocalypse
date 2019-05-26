@@ -48,14 +48,17 @@ static function bool IsPerkExtraAmmo( Class<Ammunition> AmmoType )
         /////////////////////////////////////////////
         || AmmoType == class'Weapon_M99Ammo'
         /////////////////////////////////////////////
+        //|| AmmoType == class'VSSDTAmmo'
+        /////////////////////////////////////////////
         || AmmoType == class'L96AWPLLIAmmo'
-        || AmmoType == class'VSSDTAmmo'
         );
 }
 
-static function bool IsPerkWeapon( KFWeapon Other )
+static function bool IsPerkWeapon( KFWeapon Other, String ModString )
 {
-    return(None != Crossbow(Other)
+    local bool ret;
+
+    ret = (None != Crossbow(Other)
         || None != Deagle(Other)
         || None != Dual44Magnum(Other)
         || None != DualDeagle(Other)
@@ -71,8 +74,15 @@ static function bool IsPerkWeapon( KFWeapon Other )
         || None != Weapon_M14EBRBattleRifle(Other)
         /////////////////////////////////////////////
         || none != L96AWPLLI(Other)
-        || None != VSSDT(Other)
         );
+
+    if ( ModString != "MagCapacityMod" )
+    {
+        return(ret
+            || None != VSSDT(Other)
+            );
+    }
+    return ret;
 }
 
 static function bool IsPerkSalesPickup( class<Pickup> Item )
@@ -135,28 +145,28 @@ static function float AddExtraAmmoFor( KFPlayerReplicationInfo KFPRI, Class<Ammu
 // Modify fire speed
 static function float GetFireSpeedMod( KFPlayerReplicationInfo KFPRI, Weapon Other )
 {
-    if ( IsPerkWeapon( KFWeapon(Other) ) )
+    if ( IsPerkWeapon( KFWeapon(Other), "FireSpeedMod" ) )
         return GetScale( KFPRI, 10, 100, 5 ); // 10~100%
     return 1.0;
 }
 
 static function float GetMagCapacityMod( KFPlayerReplicationInfo KFPRI, KFWeapon Other )
 {
-    if ( IsPerkWeapon(Other) )
+    if ( IsPerkWeapon( Other, "MagCapacityMod" ) )
         return GetScale( KFPRI, 20, 200, 5 ); // 20~200%
     return 1.0;
 }
 
 static function float GetReloadSpeedModifier( KFPlayerReplicationInfo KFPRI, KFWeapon Other )
 {
-    if ( IsPerkWeapon(Other) )
+    if ( IsPerkWeapon( Other, "ReloadSpeedModifier" ) )
         return GetScale( KFPRI, 10, 100, 5 ); // 10~100%
     return 1.0;
 
 }
 static function float ModifyRecoilSpread( KFPlayerReplicationInfo KFPRI, WeaponFire Other, out float Recoil )
 {
-    if ( IsPerkWeapon( KFWeapon(Other.Weapon) ) )
+    if ( IsPerkWeapon( KFWeapon(Other.Weapon), "RecoilSpread" ) )
         Recoil = 0.25;
     else Recoil = 1.0;
     Return Recoil;

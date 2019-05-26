@@ -36,14 +36,16 @@ static function bool IsPerkExtraAmmo( Class<Ammunition> AmmoType )
         || AmmoType == class'ShotgunAmmo'
         || AmmoType == class'SPShotgunAmmo'
         /////////////////////////////////////////////
-        || AmmoType == class'Rem870ECAmmo'
-        || AmmoType == class'WTFEquipBoomStickAmmo'
+        //|| AmmoType == class'Rem870ECAmmo'
+        //|| AmmoType == class'WTFEquipBoomStickAmmo'
         );
 }
 
-static function bool IsPerkWeapon( KFWeapon Other )
+static function bool IsPerkWeapon( KFWeapon Other, String ModString )
 {
-    return(None != AA12AutoShotgun(Other)
+    local bool ret;
+
+    ret = (None != AA12AutoShotgun(Other)
         || None != BenelliShotgun(Other)
         || None != Boomstick(Other)
         || None != CamoShotgun(Other)
@@ -55,9 +57,16 @@ static function bool IsPerkWeapon( KFWeapon Other )
         || None != Shotgun(Other)
         || None != SPAutoShotgun(Other)
         /////////////////////////////////////////////
-        || none != Rem870EC(Other)
-        || none != WTFEquipBoomStick(Other)
         );
+
+    if ( ModString != "MagCapacityMod" )
+    {
+        return(ret
+            || none != Rem870EC(Other)
+            || none != WTFEquipBoomStick(Other)
+            );
+    }
+    return ret;
 }
 
 static function bool IsPerkSalesPickup( class<Pickup> Item )
@@ -129,14 +138,14 @@ static function float AddExtraAmmoFor( KFPlayerReplicationInfo KFPRI, Class<Ammu
 
 static function float GetMagCapacityMod( KFPlayerReplicationInfo KFPRI, KFWeapon Other )
 {
-    if ( IsPerkWeapon(Other) )
+    if ( IsPerkWeapon( Other, "MagCapacityMod" ) )
         return GetScale( KFPRI, 20, 200, 5 ); // 20~200%
     return 1.0;
 }
 
 static function float GetReloadSpeedModifier( KFPlayerReplicationInfo KFPRI, KFWeapon Other )
 {
-    if ( IsPerkWeapon(Other) )
+    if ( IsPerkWeapon( Other, "ReloadSpeedModifier" ) )
         return GetScale( KFPRI, 10, 100, 5 ); // 10~100%
     return 1.0;
 }

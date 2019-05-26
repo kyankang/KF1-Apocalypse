@@ -28,13 +28,15 @@ static function bool IsPerkExtraAmmo( Class<Ammunition> AmmoType )
         || AmmoType == class'MAC10Ammo'
         || AmmoType == class'TrenchgunAmmo'
         /////////////////////////////////////////////
-        || AmmoType == class'UMP45Ammo'
+        //|| AmmoType == class'UMP45Ammo'
     );
 }
 
-static function bool IsPerkWeapon( KFWeapon Other )
+static function bool IsPerkWeapon( KFWeapon Other, String ModString )
 {
-    return(None != DualFlareRevolver(Other)
+    local bool ret;
+
+    ret = (None != DualFlareRevolver(Other)
         || None != Flamethrower(Other)
         || None != FlareRevolver(Other)
         || None != GoldenFlamethrower(Other)
@@ -42,8 +44,15 @@ static function bool IsPerkWeapon( KFWeapon Other )
         || None != MAC10MP(Other)
         || None != Trenchgun(Other)
         /////////////////////////////////////////////
-        || none != UMP45SubmachineGun(Other)
         );
+
+    if ( ModString != "MagCapacityMod" )
+    {
+        return(ret
+            || none != UMP45SubmachineGun(Other)
+            );
+    }
+    return ret;
 }
 
 static function bool IsPerkSalesPickup( class<Pickup> Item )
@@ -114,21 +123,21 @@ static function class<DamageType> GetMAC10DamageType( KFPlayerReplicationInfo KF
 
 static function float GetMagCapacityMod( KFPlayerReplicationInfo KFPRI, KFWeapon Other )
 {
-    if ( IsPerkWeapon(Other) )
+    if ( IsPerkWeapon( Other, "MagCapacityMod" ) )
         return GetScale( KFPRI, 100, 250, 5 ); // 100~250%
     return 1.0;
 }
 
 static function float GetReloadSpeedModifier( KFPlayerReplicationInfo KFPRI, KFWeapon Other )
 {
-    if ( IsPerkWeapon(Other) )
+    if ( IsPerkWeapon( Other, "ReloadSpeedModifier" ) )
         return GetScale( KFPRI, 10, 100, 5 ); // 10~100%
     return 1.0;
 }
 
 static function float ModifyRecoilSpread( KFPlayerReplicationInfo KFPRI, WeaponFire Other, out float Recoil )
 {
-    if ( IsPerkWeapon( KFWeapon(Other.Weapon) ) )
+    if ( IsPerkWeapon( KFWeapon(Other.Weapon), "RecoilSpread" ) )
         Recoil = 0.25;
     else Recoil = 1.0;
     return Recoil;

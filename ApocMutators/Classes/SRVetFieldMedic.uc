@@ -35,7 +35,7 @@ static function bool IsPerkExtraAmmo( Class<Ammunition> AmmoType )
         );
 }
 
-static function bool IsPerkWeapon( KFWeapon Other )
+static function bool IsPerkWeapon( KFWeapon Other, String ModString )
 {
     return(none != BlowerThrower(Other)
         || none != CamoMP5MMedicGun(Other)
@@ -132,7 +132,7 @@ static function float GetFireSpeedMod( KFPlayerReplicationInfo KFPRI, Weapon Oth
 
 static function float GetMagCapacityMod( KFPlayerReplicationInfo KFPRI, KFWeapon Other )
 {
-    if ( IsPerkWeapon(Other) )
+    if ( IsPerkWeapon( Other, "MagCapacityMod" ) )
         return GetScale( KFPRI, 10, 200, 5 ); // 10~200%
     return 1.0;
 }
@@ -146,7 +146,7 @@ static function float GetMovementSpeedModifier( KFPlayerReplicationInfo KFPRI, K
 
 static function float GetReloadSpeedModifier( KFPlayerReplicationInfo KFPRI, KFWeapon Other )
 {
-    if ( IsPerkWeapon(Other) )
+    if ( IsPerkWeapon( Other, "ReloadSpeedModifier" ) )
         return GetScale( KFPRI, 10, 100, 5 ); // 10~100%
     return 1.0;
 }

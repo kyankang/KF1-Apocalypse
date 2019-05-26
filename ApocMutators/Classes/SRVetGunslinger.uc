@@ -40,7 +40,7 @@ static function bool IsPerkExtraAmmo( Class<Ammunition> AmmoType )
         );
 }
 
-static function bool IsPerkWeapon( KFWeapon Other )
+static function bool IsPerkWeapon( KFWeapon Other, String ModString )
 {
     return(None != Weapon_Dualies(Other)
         //|| None != eapon_Deagle(Other)
@@ -91,7 +91,7 @@ static function float GetCostScaling( KFPlayerReplicationInfo KFPRI, class<Picku
 
 static function float GetMagCapacityMod( KFPlayerReplicationInfo KFPRI, KFWeapon Other )
 {
-    if ( IsPerkWeapon(Other) )
+    if ( IsPerkWeapon( Other, "MagCapacityMod" ) )
         return GetScale( KFPRI, 20, 150, 5 ); // 20~150%
     return 1.0;
 }
@@ -105,14 +105,14 @@ static function float GetMovementSpeedModifier( KFPlayerReplicationInfo KFPRI, K
 
 static function float GetReloadSpeedModifier( KFPlayerReplicationInfo KFPRI, KFWeapon Other )
 {
-    if ( IsPerkWeapon(Other) )
+    if ( IsPerkWeapon( Other, "ReloadSpeedModifier" ) )
         return GetScale( KFPRI, 10, 100, 5 ); // 10~100%
     return 1.0;
 }
 
 static function float ModifyRecoilSpread( KFPlayerReplicationInfo KFPRI, WeaponFire Other, out float Recoil )
 {
-    if ( IsPerkWeapon( KFWeapon(Other.Weapon)) )
+    if ( IsPerkWeapon( KFWeapon(Other.Weapon), "RecoilSpread" ) )
         Recoil = 0.25;
     else Recoil = 1.0;
     Return Recoil;

@@ -44,7 +44,7 @@ static function bool IsPerkExtraAmmo( Class<Ammunition> AmmoType )
         || AmmoType == class'SeekerSixAmmo'
         || AmmoType == class'SPGrenadeAmmo'
         /////////////////////////////////////////////
-        || AmmoType == class'PP19Ammo'
+        //|| AmmoType == class'PP19Ammo'
         /////////////////////////////////////////////
         || AmmoType == class'ATMineAmmo'
         || AmmoType == class'HL_RPGAmmo'
