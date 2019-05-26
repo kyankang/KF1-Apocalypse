@@ -4,6 +4,8 @@ Class SlotMachine_UHGrenade extends SlotMachine_HGrenade;
 
 simulated function Explode(vector HitLocation, vector HitNormal)
 {
+    local Controller C;
+
     bHasExploded = True;
 
     if (Level.NetMode != NM_DedicatedServer)
