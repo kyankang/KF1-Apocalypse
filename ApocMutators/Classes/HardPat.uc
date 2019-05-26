@@ -1,13 +1,20 @@
 class HardPat extends ZEDS_ZombieBoss
 	config(ApocMutators);
 
-//kyan: add
-var config float HardPatHealthModifier;
+var config int ApocForcedMinPlayers;
+var config int ApocHealth;
+var config int ApocHeadHealth;
+var config float ApocPlayerCountHealthScale;
+var config float ApocPlayerNumHeadHealthScale;
+var config int ApocMeleeDamage;
+var config int ApocClawMeleeDamageRange;
+var config int ApocImpaleMeleeDamageRange;
+var config float ApocHealingModifiers[3];
+var config float ApocMGDamages[4];
 
 var transient float GiveUpTime;
 var byte MissilesLeft;
 var bool bValidBoss,bMovingChaingunAttack;
-var float MGDamageLevels[4];
 
 replication
 {
@@ -15,16 +22,62 @@ replication
 		bMovingChaingunAttack;
 }
 
-//kyan: add
-function bool CheckReplacement(Actor Other, out byte bSuperRelevant)
+simulated function PostBeginPlay()
 {
-    if (HardPat(Other) != none)
+	super.PostBeginPlay();
+
+    if (ApocHealth>0 && Health!=ApocHealth)
     {
-        HardPat(Other).HealthMax = 30000;
-        HardPat(Other).Health = 30000;
+        Health = ApocHealth;
+		HealthMax = ApocHealth;
     }
 
-    return true;
+    if (ApocHeadHealth>0 && HeadHealth!=ApocHeadHealth)
+        HeadHealth = ApocHeadHealth;
+
+    if (ApocPlayerCountHealthScale>0 && PlayerCountHealthScale!=ApocPlayerCountHealthScale)
+        PlayerCountHealthScale = ApocPlayerCountHealthScale;
+
+    if (ApocPlayerNumHeadHealthScale>0 && PlayerNumHeadHealthScale!=ApocPlayerNumHeadHealthScale)
+		PlayerNumHeadHealthScale = ApocPlayerNumHeadHealthScale;
+
+	if (ApocMeleeDamage>0)
+		MeleeDamage = ApocMeleeDamage;
+
+	if (ApocClawMeleeDamageRange>0)
+		ClawMeleeDamageRange = ApocClawMeleeDamageRange;
+
+	if (ApocImpaleMeleeDamageRange>0)
+		ImpaleMeleeDamageRange = ApocImpaleMeleeDamageRange;
+
+	if (ApocHealingModifiers[0]>0)
+		HealingLevels[0] = Health/ApocHealingModifiers[0];
+	else HealingLevels[0] = Health/1.25;
+
+	if (ApocHealingModifiers[1]>0)
+		HealingLevels[1] = Health/ApocHealingModifiers[1];
+	else HealingLevels[1] = Health/1.5f;
+
+	if (ApocHealingModifiers[0]>0)
+		HealingLevels[2] = Health/ApocHealingModifiers[0];
+	else HealingLevels[2] = Health/2.0f;
+
+	HealingAmount = Health/4;
+//  log("HealingAmount = "$HealingAmount);
+}
+
+function float NumPlayersHealthModifer()
+{
+    if (ApocForcedMinPlayers>0)
+        return 1.0 + (ApocForcedMinPlayers - 1) * ApocPlayerCountHealthScale;
+    return Super.NumPlayersHealthModifer();
+}
+
+function float NumPlayersHeadHealthModifer()
+{
+    if (ApocForcedMinPlayers>0)
+        return 1.0 + (ApocForcedMinPlayers - 1) * ApocPlayerNumHeadHealthScale;
+    return Super.NumPlayersHeadHealthModifer();
 }
 
 //kyan: add
@@ -46,46 +99,6 @@ final function bool CheckJumpReach( Actor A )
 final function float GetJumpHeight( Actor A )
 {
 	return (FMax(A.Location.Z-Location.Z,0.f)+1000.f);
-}
-
-//kyan: add
-// Scales the health this Zed has by number of players
-function float NumPlayersHealthModifer()
-{
-	local float AdjustedModifier;
-	local int NumEnemies;
-	local Controller C;
-
-	AdjustedModifier = 1.0;
-
-	For( C=Level.ControllerList; C!=None; C=C.NextController )
-		if( C.bIsPlayer && C.Pawn!=None && C.Pawn.Health > 0 )
-			NumEnemies++;
-
-	if( NumEnemies > 1 )
-		AdjustedModifier += (NumEnemies - 1) * PlayerCountHealthScale;
-
-	return AdjustedModifier * HardPatHealthModifier;
-}
-
-//kyan: add
-// Scales the head health this Zed has by number of players
-function float NumPlayersHeadHealthModifer()
-{
-	local float AdjustedModifier;
-	local int NumEnemies;
-	local Controller C;
-
-	AdjustedModifier = 1.0;
-
-	For( C=Level.ControllerList; C!=None; C=C.NextController )
-		if( C.bIsPlayer && C.Pawn!=None && C.Pawn.Health > 0 )
-			NumEnemies++;
-
-	if( NumEnemies > 1 )
-		AdjustedModifier += (NumEnemies - 1) * PlayerNumHeadHealthScale;
-
-	return AdjustedModifier * HardPatHealthModifier;
 }
 
 function bool MakeGrandEntry()
@@ -348,6 +361,8 @@ state FireChaingun
 	}
 	function Tick( float Delta )
 	{
+		local float MGDamageTemp;
+
 		Super(KFMonster).Tick(Delta);
 
 		/*kyan: removed
@@ -363,11 +378,13 @@ state FireChaingun
 		//kyan: add
 		switch (SyringeCount)
 		{
-		case 0: MGDamage = MGDamageLevels[0]; break;
-		case 1: MGDamage = MGDamageLevels[1]; break;
-		case 2: MGDamage = MGDamageLevels[2]; break;
-		case 3: MGDamage = MGDamageLevels[3]; break;
+		case 0: MGDamageTemp = ApocMGDamages[0]; break;
+		case 1: MGDamageTemp = ApocMGDamages[1]; break;
+		case 2: MGDamageTemp = ApocMGDamages[2]; break;
+		case 3: MGDamageTemp = ApocMGDamages[3]; break;
 		}
+		if (MGDamageTemp>0)
+			MGDamage = MGDamageTemp;
 	}
 
 	function AnimEnd( int Channel )
@@ -908,73 +925,6 @@ function TakeDamage( int Damage, Pawn InstigatedBy, Vector Hitlocation, Vector M
 	}
 }
 
-simulated function PostBeginPlay()
-{
-	super.PostBeginPlay();
-
-	if( Role < ROLE_Authority )
-	{
-		return;
-	}
-
-	// Difficulty Scaling
-	if (Level.Game != none)
-	{
-		//log(self$" Beginning ground speed "$default.GroundSpeed);
-
-		// If you are playing by yourself,  reduce the MG damage
-		if( Level.Game.NumPlayers == 1 )
-		{
-			if( Level.Game.GameDifficulty < 2.0 )
-			{
-				MGDamage = default.MGDamage * 0.375;
-			}
-			else if( Level.Game.GameDifficulty < 4.0 )
-			{
-				MGDamage = default.MGDamage * 0.75;
-			}
-			else if( Level.Game.GameDifficulty < 5.0 )
-			{
-				MGDamage = default.MGDamage * 1.15;
-			}
-			else // Hardest difficulty
-			{
-				MGDamage = default.MGDamage * 1.3;
-			}
-		}
-		else
-		{
-			if( Level.Game.GameDifficulty < 2.0 )
-			{
-				MGDamage = default.MGDamage * 0.375;
-			}
-			else if( Level.Game.GameDifficulty < 4.0 )
-			{
-				MGDamage = default.MGDamage * 1.0;
-			}
-			else if( Level.Game.GameDifficulty < 5.0 )
-			{
-				MGDamage = default.MGDamage * 1.15;
-			}
-			else // Hardest difficulty
-			{
-				MGDamage = default.MGDamage * 1.3;
-			}
-		}
-	}
-
-	HealingLevels[0] = 5600;//Health/1.25; // Around 5600 HP
-	HealingLevels[1] = 3500;//Health/1.5f; // Around 3500 HP
-	HealingLevels[2] = 2187;//Health/2.0f; // Around 2187 HP
-//  log("Health = "$Health);
-//  log("HealingLevels[0] = "$HealingLevels[0]);
-//  log("HealingLevels[1] = "$HealingLevels[1]);
-//  log("HealingLevels[2] = "$HealingLevels[2]);
-
-	HealingAmount = Health/4; // 1750 HP
-//  log("HealingAmount = "$HealingAmount);
-}
-
 defaultproperties
 {
 	ControllerClass=Class'ApocMutators.HardPatController'
@@ -989,23 +939,18 @@ defaultproperties
 
 	GroundSpeed=130.000000
 	WaterSpeed=130.000000
-	Health=130000//4000
-	HealthMax=130000//4000
-	HeadHealth=130000//30000
-	PlayerCountHealthScale=0.7//0.7//0.25//0.75
-	PlayerNumHeadHealthScale=0.5//0.5//0.25//0.75
-	HealingLevels(0)=15500//10000//15500
-	HealingLevels(1)=12500//10000//12500
-	HealingLevels(2)=10000//10000//10000
+	Health=30000//4000
+	HealthMax=30000//4000
+	HeadHealth=30000//30000
+	PlayerCountHealthScale=10.0//0.7//0.25//0.75
+	PlayerNumHeadHealthScale=10.0//0.5//0.25//0.75
+	HealingLevels(0)=15500
+	HealingLevels(1)=12500
+	HealingLevels(2)=10000
 	HealingAmount=20000
 	MeleeDamage=30//75
 	ClawMeleeDamageRange=75//50//50
 	ImpaleMeleeDamageRange=35//75//45
 	MGDamage=2.0//5.0//6.0
-	MGDamageLevels(0)=1.0
-	MGDamageLevels(1)=1.1
-	MGDamageLevels(2)=1.2
-	MGDamageLevels(3)=1.3
 	JumpZ=320.000000
-	HardPatHealthModifier=3.0
 }
