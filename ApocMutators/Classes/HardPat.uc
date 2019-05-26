@@ -963,9 +963,9 @@ simulated function PostBeginPlay()
 		}
 	}
 
-	HealingLevels[0] = Health/1.25; // Around 5600 HP
-	HealingLevels[1] = Health/1.5f; // Around 3500 HP
-	HealingLevels[2] = Health/2.0f; // Around 2187 HP
+	HealingLevels[0] = 5600;//Health/1.25; // Around 5600 HP
+	HealingLevels[1] = 3500;//Health/1.5f; // Around 3500 HP
+	HealingLevels[2] = 2187;//Health/2.0f; // Around 2187 HP
 //  log("Health = "$Health);
 //  log("HealingLevels[0] = "$HealingLevels[0]);
 //  log("HealingLevels[1] = "$HealingLevels[1]);

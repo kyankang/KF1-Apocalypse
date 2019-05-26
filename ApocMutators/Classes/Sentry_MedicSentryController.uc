@@ -265,11 +265,9 @@ ShootEnemy:
 				if (Enemy.Health > Enemy.HealthMax)
 					Enemy.Health = Enemy.HealthMax;
 
-				/*
 				if (Sentry_MedicSentry.OwnerPawn != None && Sentry_MedicSentry.OwnerPawn != KFHumanPawn(Enemy))
 					KFSteamStatsAndAchievements(KFPlayerReplicationInfo(Sentry_MedicSentry.OwnerPawn.PlayerReplicationInfo).SteamStatsAndAchievements)
 						.AddDamageHealed(Sentry_MedicSentry.HitDamage);
-				*/
 			}
 
 			Sleep(0.34999999);
