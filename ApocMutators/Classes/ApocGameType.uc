@@ -259,10 +259,13 @@ function ShowPathTo(PlayerController P, int TeamNum)
 
 	KFGameReplicationInfo(GameReplicationInfo).CurrentShop.InitTeleports();
 
-	if ( (KFGameReplicationInfo(GameReplicationInfo).CurrentShop.TelList[0] != None) &&
-	   (P.FindPathToward(KFGameReplicationInfo(GameReplicationInfo).CurrentShop.TelList[0], false) != None) )
+	if ( KFGameReplicationInfo(GameReplicationInfo).CurrentShop.TelList.Length > 0 )
 	{
-		Spawn(class'RedWhisp', P,, P.Pawn.Location);
+		if ( (KFGameReplicationInfo(GameReplicationInfo).CurrentShop.TelList[0] != None) &&
+		(P.FindPathToward(KFGameReplicationInfo(GameReplicationInfo).CurrentShop.TelList[0], false) != None) )
+		{
+			Spawn(class'RedWhisp', P,, P.Pawn.Location);
+		}
 	}
 }
 
