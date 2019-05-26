@@ -989,9 +989,9 @@ defaultproperties
 
 	GroundSpeed=130.000000
 	WaterSpeed=130.000000
-	Health=30000//4000
-	HealthMax=30000//4000
-	HeadHealth=30000//30000
+	Health=130000//4000
+	HealthMax=130000//4000
+	HeadHealth=130000//30000
 	PlayerCountHealthScale=0.7//0.7//0.25//0.75
 	PlayerNumHeadHealthScale=0.5//0.5//0.25//0.75
 	HealingLevels(0)=15500//10000//15500
