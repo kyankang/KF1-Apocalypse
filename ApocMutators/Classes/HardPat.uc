@@ -24,8 +24,6 @@ replication
 
 simulated function PostBeginPlay()
 {
-	super.PostBeginPlay();
-
     if (ApocHealth>0 && Health!=ApocHealth)
     {
         Health = ApocHealth;
@@ -40,6 +38,8 @@ simulated function PostBeginPlay()
 
     if (ApocPlayerNumHeadHealthScale>0 && PlayerNumHeadHealthScale!=ApocPlayerNumHeadHealthScale)
 		PlayerNumHeadHealthScale = ApocPlayerNumHeadHealthScale;
+
+	super.PostBeginPlay();
 
 	if (ApocMeleeDamage>0)
 		MeleeDamage = ApocMeleeDamage;
