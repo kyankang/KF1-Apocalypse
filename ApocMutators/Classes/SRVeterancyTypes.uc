@@ -344,7 +344,8 @@ static final function AddPerkedWeapon( class<KFWeapon> W, KFPlayerReplicationInf
 
 static function bool IsPerkReduceDamage( class<DamageType> DmgType )
 {
-    if(none != class< DamTypeFlameNade >(DmgType)
+    if(none != class< DamTypeBurned >(DmgType)
+    || none != class< DamTypeFlameNade >(DmgType)
     || none != class< DamTypeFlamethrower >(DmgType)
     || none != class< DamTypeFrag >(DmgType)
     || none != class< DamTypeHuskGun >(DmgType)

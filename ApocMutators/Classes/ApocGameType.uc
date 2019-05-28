@@ -19,7 +19,6 @@ class ApocGameType extends KFGameType
 	config(ApocMutators);
 
 struct SZombiesOnce {
-	var config byte MinPlayers, MaxPlayers;
 	var config byte MinZombies, MaxZombies;
 };
 
@@ -2374,7 +2373,9 @@ State MatchInProgress
 				}*/
 
 				//kyan: modified, 인원수가 많으면 젠 속도를 쉬지 않고, 스폰 시킨다.
-				NextMonsterTime = Level.TimeSeconds + Lerp( (ApocZombiesOnce.MinPlayers / ApocZombiesOnce.MaxPlayers), ApocWaveSpawnPeriod, 0 );
+				if (NumPlayers > 0)
+					NextMonsterTime = Level.TimeSeconds + Lerp( (NumPlayers / ApocMaxPlayers), ApocWaveSpawnPeriod, 0 );
+				else NextMonsterTime = Default.NextMonsterTime;
 			}
 		}
 		else if ( NumMonsters <= 0 )
@@ -3605,7 +3606,8 @@ function SetupWave()
 
 	//kyan: add
 	TotalMaxMonsters = Clamp(NewMaxMonsters,5,ApocTotalMaxMonsters);
-	MaxZombiesOnce = Lerp( (ApocZombiesOnce.MinPlayers / ApocZombiesOnce.MaxPlayers), ApocZombiesOnce.MinZombies, ApocZombiesOnce.MaxZombies );
+	if (NumPlayers > 0)
+		MaxZombiesOnce = Lerp( (NumPlayers / ApocMaxPlayers), ApocZombiesOnce.MinZombies, ApocZombiesOnce.MaxZombies );
 
 	MaxMonsters = Clamp(TotalMaxMonsters,5,MaxZombiesOnce);
 	//log("****** "$MaxMonsters$" Max at once!");
@@ -5487,7 +5489,7 @@ defaultproperties
 	ApocLobbyTimeOut=20
 	ApocTimeBetweenWaves=90
 	ApocTotalMaxMonsters=1000
-	ApocZombiesOnce=(MinPlayers=1,MaxPlayers=24,MinZombies=32,MaxZombies=64)
+	ApocZombiesOnce=(MinZombies=32,MaxZombies=64)
 	ApocGameDifficulty=7.000000
 	ApocMaxPlayers=24
 	ApocAccessControlClass="XAdmin.AccessControlIni"
