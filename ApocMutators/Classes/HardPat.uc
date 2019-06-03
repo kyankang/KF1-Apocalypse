@@ -6,10 +6,11 @@ var config int ApocHealth;
 var config int ApocHeadHealth;
 var config float ApocPlayerCountHealthScale;
 var config float ApocPlayerNumHeadHealthScale;
+var config float ApocHealingModifiers[3];
+var config float ApocHealingAmountMod;
 var config int ApocMeleeDamage;
 var config int ApocClawMeleeDamageRange;
 var config int ApocImpaleMeleeDamageRange;
-var config float ApocHealingModifiers[3];
 var config float ApocMGDamages[4];
 
 var transient float GiveUpTime;
@@ -24,7 +25,11 @@ replication
 
 simulated function PostBeginPlay()
 {
-    if (ApocHealth>0 && Health!=ApocHealth)
+    local Controller C;
+
+	super(KFMonster).PostBeginPlay();
+
+	if (ApocHealth>0 && Health!=ApocHealth)
     {
         Health = ApocHealth;
 		HealthMax = ApocHealth;
@@ -39,7 +44,10 @@ simulated function PostBeginPlay()
     if (ApocPlayerNumHeadHealthScale>0 && PlayerNumHeadHealthScale!=ApocPlayerNumHeadHealthScale)
 		PlayerNumHeadHealthScale = ApocPlayerNumHeadHealthScale;
 
-	super.PostBeginPlay();
+	// Scale health by number of players
+	Health *= NumPlayersHealthModifer();
+	HealthMax *= NumPlayersHealthModifer();
+	HeadHealth *= NumPlayersHeadHealthModifer();
 
 	if (ApocMeleeDamage>0)
 		MeleeDamage = ApocMeleeDamage;
@@ -59,11 +67,17 @@ simulated function PostBeginPlay()
 	else HealingLevels[1] = Health/1.5f;
 
 	if (ApocHealingModifiers[0]>0)
-		HealingLevels[2] = Health/ApocHealingModifiers[0];
+		HealingLevels[2] = Health/ApocHealingModifiers[2];
 	else HealingLevels[2] = Health/2.0f;
 
-	HealingAmount = Health/4;
+	if (ApocHealingAmountMod>0)
+		HealingAmount = Health/ApocHealingAmountMod;
+	else HealingAmount = Health/4;
 //  log("HealingAmount = "$HealingAmount);
+
+	for (C=Level.ControllerList; C != None; C=C.NextController)
+		if (PlayerController(C) != None)
+			PlayerController(C).ClientMessage("The Patriarch had "  $  Health);
 }
 
 function float NumPlayersHealthModifer()
@@ -80,7 +94,7 @@ function float NumPlayersHeadHealthModifer()
     return Super.NumPlayersHeadHealthModifer();
 }
 
-//kyan: add
+/*kyan: test
 final function bool CheckJumpReach( Actor A )
 {
 	local vector E,End,Dummy;
@@ -95,11 +109,10 @@ final function bool CheckJumpReach( Actor A )
 	return (Trace(Dummy,Dummy,End,Location,false,E)==None && A.Trace(Dummy,Dummy,End,A.Location,false,E)==None);
 }
 
-//kyan: add
 final function float GetJumpHeight( Actor A )
 {
 	return (FMax(A.Location.Z-Location.Z,0.f)+1000.f);
-}
+}*/
 
 function bool MakeGrandEntry()
 {
@@ -227,7 +240,7 @@ function RangedAttack(Actor A)
 
 		GoToState('FireChaingun');
 	}
-	//kyan: add
+	/*kyan: test
 	else if ( D < 700.f && Controller.ActorReachable(A) && CheckJumpReach(A) && FRand() > 0.75)
 	{
 		Controller.MoveTarget = A;
@@ -236,7 +249,7 @@ function RangedAttack(Actor A)
 		Velocity = SuggestFallVelocity(A.Location+A.Velocity+vect(0,0,1)*(A.CollisionHeight+CollisionHeight),Location,GetJumpHeight(A),FMax(D*1.5f,200));
 		PlaySound(JumpSound,SLOT_Interact);
 		Controller.GoToState('ZombieHunt','Begin');
-	}
+	}*/
 }
 
 simulated function bool AnimNeedsWait(name TestAnim)

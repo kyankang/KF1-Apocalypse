@@ -8,6 +8,11 @@ simulated function PostBeginPlay()
     //TranlsateCustom();
 }
 
+simulated function CrossbuzzsawBlade_NoAmbientSound()
+{
+    class'KFMod.CrossbuzzsawBlade'.default.LifeSpan = 1.0;
+}
+
 simulated function TranslateDLC()
 {
     class'KFMod.Crossbuzzsaw'.default.ItemName = "[DLC] Buzzsaw Bow";

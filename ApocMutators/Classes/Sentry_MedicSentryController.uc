@@ -248,7 +248,30 @@ ShootEnemy:
 		Sleep(0.34999999);
 	}*/
 
-	//kyan: modifed
+	//kyan: 모든 퍼크 힐링
+	While((Enemy != None)
+		&& (Enemy.Health < Enemy.HealthMax)
+		&& LineOfSightTo(Enemy)
+		&& !MustReturnToOwner())
+	{
+		Pawn.Acceleration = vect(0.00, 0.00, 0.00);
+
+		if (Enemy.Controller != None)
+		{
+			Enemy.Health += Sentry_MedicSentry.HitDamage;
+
+			if (Enemy.Health > Enemy.HealthMax)
+				Enemy.Health = Enemy.HealthMax;
+
+			if (Sentry_MedicSentry.OwnerPawn != None)
+				KFSteamStatsAndAchievements(KFPlayerReplicationInfo(Sentry_MedicSentry.OwnerPawn.PlayerReplicationInfo).SteamStatsAndAchievements)
+					.AddDamageHealed(Sentry_MedicSentry.HitDamage);
+		}
+
+		Sleep(0.34999999);
+	}
+
+	/*kyan: 필드메딕만 힐링
 	if (KFPlayerReplicationInfo(Sentry_MedicSentry.OwnerPawn.PlayerReplicationInfo).ClientVeteranSkill == Class'SRVetFieldMedic')
 	{
 		While((Enemy != none)
@@ -272,7 +295,7 @@ ShootEnemy:
 
 			Sleep(0.34999999);
 		}
-	}
+	}*/
 
 	Sentry_MedicSentry.SetAnimationNum(0);
 	Sleep(0.44999999);

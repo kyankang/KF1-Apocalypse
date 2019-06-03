@@ -5,7 +5,7 @@ class VALDTAmmo extends KFAmmunition;
 defaultproperties
 {
      AmmoPickupAmount=30
-     MaxAmmo=300
+     MaxAmmo=1200
      InitialAmount=120
      PickupClass=Class'VALDTAmmoPickup'
      IconMaterial=Texture'KillingFloorHUD.Generic.HUD'

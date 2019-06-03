@@ -121,10 +121,7 @@ static function float GetHeadShotDamMulti( KFPlayerReplicationInfo KFPRI, KFPawn
     if ( IsPerkDamType(DmgType) )
         ret = GetScale( KFPRI, 60, 250, 5 ); // 60~250%
     else ret = 1.0; // Fix for oversight in Balance Round 6(which is the reason for the Round 6 second attempt patch)
-
-    // headshot damage: 50~150%
-    //return ret  * (1.0 + FMin(1.5, 0.05 * KFPRI.ClientVeteranSkillLevel));
-    return ret * 2.5;
+    return ret;
 }
 
 // Change the cost of particular items

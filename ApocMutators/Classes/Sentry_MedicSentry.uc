@@ -279,12 +279,13 @@ function Timer()
 
 	X = Normal(X + VRand() * 0.04);
 
+	/*kyan: 모든 퍼크 메딧봇 힐링
 	if (KFPRI.ClientVeteranSkill != Class'SRVetFieldMedic')
 	{
 		A = None;
 	}
 	else
-	{
+	{*/
 		foreach TraceActors(Class'Actor', res, HL, HN, Location + X * 8000.0, Location)
 		{
 			if ((res != self)
@@ -296,7 +297,7 @@ function Timer()
 				A = res;
 			}
 		}
-	}
+	//}
 
 	if (A != None && KFHumanPawn(A) != None)
 	{

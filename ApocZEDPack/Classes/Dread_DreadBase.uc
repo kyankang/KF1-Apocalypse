@@ -18,7 +18,7 @@ defaultproperties
 	 MeleeAnims(0)="ZombieBarf"
 	 MeleeAnims(1)="ZombieBarf"
 	 MeleeAnims(2)="ZombieBarf"
-	 MoanVoice=SoundGroup'DreadSND.Scream.Scream'
+	 MoanVoice=None//SoundGroup'DreadSND.Scream.Scream'
 	 BleedOutDuration=6.000000
 	 ZombieFlag=1
 	 MeleeDamage=14
@@ -26,7 +26,7 @@ defaultproperties
 	 bFatAss=True
 	 KFRagdollName="Clot_Trip"
 	 MeleeAttackHitSound=SoundGroup'KF_EnemiesFinalSnd.Bloat.Bloat_HitPlayer'
-	 JumpSound=SoundGroup'DreadSND.Scream.Scream'
+	 JumpSound=None//SoundGroup'DreadSND.Scream.Scream'
 	 PuntAnim="ZombieBarf"
 	 Intelligence=BRAINS_Stupid
 	 bCanDistanceAttackDoors=True
@@ -38,12 +38,12 @@ defaultproperties
 	 SeveredLegAttachScale=1.300000
 	 OnlineHeadshotOffset=(X=5.000000,Z=70.000000)
 	 OnlineHeadshotScale=1.500000
-	 HitSound(0)=SoundGroup'DreadSND.Scream.Scream'
+	 HitSound(0)=None//SoundGroup'DreadSND.Scream.Scream'
 	 DeathSound(0)=SoundGroup'DreadSND.Dying.Die'
-	 ChallengeSound(0)=SoundGroup'DreadSND.Scream.Scream'
-	 ChallengeSound(1)=SoundGroup'DreadSND.Scream.Scream'
-	 ChallengeSound(2)=SoundGroup'DreadSND.Scream.Scream'
-	 ChallengeSound(3)=SoundGroup'DreadSND.Scream.Scream'
+	 ChallengeSound(0)=None//SoundGroup'DreadSND.Scream.Scream'
+	 ChallengeSound(1)=None//SoundGroup'DreadSND.Scream.Scream'
+	 ChallengeSound(2)=None//SoundGroup'DreadSND.Scream.Scream'
+	 ChallengeSound(3)=None//SoundGroup'DreadSND.Scream.Scream'
 	 AmmunitionClass=Class'KFMod.BZombieAmmo'
 	 ScoringValue=17
 	 IdleHeavyAnim="Idle"
@@ -69,7 +69,7 @@ defaultproperties
 	 IdleCrouchAnim="Idle"
 	 IdleWeaponAnim="Idle"
 	 IdleRestAnim="Idle"
-	 AmbientSound=SoundGroup'DreadSND.Scream.Scream'
+	 AmbientSound=None//SoundGroup'DreadSND.Scream.Scream'
 	 Mesh=SkeletalMesh'Dread2.Dread'
 	 DrawScale=1.075000
 	 PrePivot=(Z=5.000000)

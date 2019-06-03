@@ -14,7 +14,7 @@ static function float ExecuteCard(Pawn Target)
 defaultproperties
 {
 	 SpawnMessage=Class'ApocMutators.SlotMachine_PatriarchMessage'
-	 MonsterClass=Class'ApocMutators.SlotMachine_MiniPat'
+	 MonsterClass=Class'ApocZEDPack.Doom3KF_MiniPat'
 	 Desireability=0.050000
 	 CardMaterial=Texture'KillingFloorHUD.Achievements.Achievement_15'
 }

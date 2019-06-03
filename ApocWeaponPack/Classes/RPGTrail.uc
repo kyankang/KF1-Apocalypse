@@ -13,19 +13,21 @@ class RPGTrail extends RPGDGVEmitter;
 
 simulated function HandleOwnerDestroyed()
 {
+    /*kyan: removed
     Emitters[0].ParticlesPerSecond = 0;
     Emitters[0].InitialParticlesPerSecond = 0;
     Emitters[0].RespawnDeadParticles=false;
 
     Emitters[1].ParticlesPerSecond = 0;
     Emitters[1].InitialParticlesPerSecond = 0;
-    Emitters[1].RespawnDeadParticles=false;
+    Emitters[1].RespawnDeadParticles=false;*/
 
     AutoDestroy=true;
 }
 
 defaultproperties
 {
+     /*kyan: removed
      Begin Object Class=SpriteEmitter Name=SpriteEmitter0
          FadeOut=True
          SpinParticles=True
@@ -92,6 +94,5 @@ defaultproperties
          VelocityScale(1)=(RelativeTime=0.400000,RelativeVelocity=(X=0.150000,Y=1.000000,Z=1.000000))
          VelocityScale(2)=(RelativeTime=1.000000,RelativeVelocity=(Y=0.400000,Z=0.400000))
      End Object
-     Emitters(1)=SpriteEmitter'RPGTrail.SpriteEmitter1'
-
+     Emitters(1)=SpriteEmitter'RPGTrail.SpriteEmitter1'*/
 }

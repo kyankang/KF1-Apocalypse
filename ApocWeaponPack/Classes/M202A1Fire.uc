@@ -52,17 +52,17 @@ function projectile SpawnProjectileBack(Vector Start, Rotator Dir, Rotator BaseD
 event ModeDoFire()
 {
 	local float Rec;
-	
+
 	if (!AllowFire())
 		return;
-	
+
 	Spread = Default.Spread;
-	
+
 	Rec = GetFireSpeed();
 	FireRate = default.FireRate/Rec;
 	FireAnimRate = default.FireAnimRate*Rec;
 	if(KFWeapon(Weapon).bAimingRifle)
-	{		
+	{
 		FireAnim = FireAnimIron;
 	}
 	else
@@ -71,12 +71,12 @@ event ModeDoFire()
 	}
 
 	Rec = 1;
-	
+
 	if ( KFPlayerReplicationInfo(Instigator.PlayerReplicationInfo) != none && KFPlayerReplicationInfo(Instigator.PlayerReplicationInfo).ClientVeteranSkill != none )
 	{
 		Spread *= KFPlayerReplicationInfo(Instigator.PlayerReplicationInfo).ClientVeteranSkill.Static.ModifyRecoilSpread(KFPlayerReplicationInfo(Instigator.PlayerReplicationInfo), self, Rec);
 	}
-	
+
 	if( !bFiringDoesntAffectMovement )
 	{
 		if (FireRate > 0.25)
@@ -92,10 +92,10 @@ event ModeDoFire()
 	}
 	if (!AllowFire())
 	return;
-	
+
 	if (MaxHoldTime > 0.0)
 	HoldTime = FMin(HoldTime, MaxHoldTime);
-	
+
 	// server
 	if (Level.NetMode != NM_Client)
 	{
@@ -105,13 +105,13 @@ event ModeDoFire()
 		HoldTime = 0;	// if bot decides to stop firing, HoldTime must be reset first
 	if ( (Instigator == None) || (Instigator.Controller == None) )
 			return;
-	
+
 	if ( AIController(Instigator.Controller) != None )
 	    AIController(Instigator.Controller).WeaponFireAgain(BotRefireRate, true);
-	
+
 	Instigator.DeactivateSpawnProtection();
 	}
-	
+
 	// client
 	if (Instigator.IsLocallyControlled())
 	{
@@ -123,15 +123,16 @@ event ModeDoFire()
 	ShakeView();
 	PlayFiring();
 	FlashMuzzleFlash();
-	StartMuzzleSmoke();
+	/*kyan: removed
+	StartMuzzleSmoke();*/
 	}
 	else // server
 	{
 	ServerPlayFiring();
 	}
-	
+
 	Weapon.IncrementFlashCount(ThisModeNum);
-	
+
 	// set the next firing time. must be careful here so client and server do not get out of sync
 	if (bFireOnRelease)
 	{
@@ -145,10 +146,10 @@ event ModeDoFire()
 	NextFireTime += FireRate;
 	NextFireTime = FMax(NextFireTime, Level.TimeSeconds);
 	}
-	
+
 	Load = AmmoPerFire;
 	HoldTime = 0;
-	
+
 	if (Instigator.PendingWeapon != Weapon && Instigator.PendingWeapon != None)
 	{
 	bIsFiring = false;
@@ -162,7 +163,7 @@ event ModeDoFire()
 }
 
 function DoFireEffectN(int nomer)
-{	
+{
 	local Vector offsetsXYZ;
 
  	offsetsXYZ = BackBurnProjSpawnOffset;
@@ -175,7 +176,7 @@ function DoFireEffectN(int nomer)
 	if(nomer==3)
 	{
 		offsetsXYZ.Y =  offsetsXYZ.Y;
-		offsetsXYZ.z =  offsetsXYZ.Z;	
+		offsetsXYZ.z =  offsetsXYZ.Z;
 	}
 	if(nomer==2)
 	{
@@ -186,8 +187,8 @@ function DoFireEffectN(int nomer)
 	{
 		offsetsXYZ.Y =  offsetsXYZ.Y;
 		offsetsXYZ.z = -offsetsXYZ.Z;
-	}		
-	DoFireEffectWithOffsets(offsetsXYZ);		
+	}
+	DoFireEffectWithOffsets(offsetsXYZ);
 }
 
 function DoFireEffectWithOffsets(vector offsetsXYZ)
@@ -255,34 +256,34 @@ function DoFireEffectWithOffsets(vector offsetsXYZ)
 
 	if (Instigator != none && Instigator.Physics != PHYS_Falling)
 		Instigator.AddVelocity(KickMomentum >> Instigator.GetViewRotation());
-	
+
 	Instigator.MakeNoise(1.0);
-	Weapon.GetViewAxes(X,Y,Z);	
-	
+	Weapon.GetViewAxes(X,Y,Z);
+
 	StartTrace = Instigator.Location + Instigator.EyePosition();// + X*Instigator.CollisionRadius;
 	StartProj = StartTrace + X*BackBurnProjSpawnOffset.X;
 	if ( !Weapon.WeaponCentered() && !KFWeap.bAimingRifle )
 	    //StartProj = StartProj + Weapon.Hand * Y*ProjSpawnOffset.Y + Z*ProjSpawnOffset.Z;
 	    StartProj = StartProj + Weapon.Hand * Y*ProjSpawnOffset.Y+Y*offsetsXYZ.Y+ Z*ProjSpawnOffset.Z+Z*offsetsXYZ.Z;
-	
+
 	// check if projectile would spawn through a wall and adjust start location accordingly
 	Other = Weapon.Trace(HitLocation, HitNormal, StartProj, StartTrace, false);
-	
+
 	// Collision attachment debugging
 	 /*   if( Other.IsA('ROCollisionAttachment'))
 	    {
 	    	log(self$"'s trace hit "$Other.Base$" Collision attachment");
 	    }*/
-	
+
 	if (Other != None)
 	{
 	StartProj = HitLocation;
 	}
-	
+
 	Aim = AdjustAim(StartProj, AimError);
 	Aim.Pitch = Aim.Pitch+65536/2;
 	SpawnCount = Max(1, BackBurnProjPerFire+Rand(BackBurnPlusMinusCount));
-	
+
 	X = Vector(Aim);
 	/*shag = 65536/SpawnCount;
 	for (p = 0; p < SpawnCount; p++)
@@ -335,20 +336,20 @@ While ( RocketsLoaded > 0 )
 				{
 					s = Spawn( class 'ut_SeekingRocket',, '', FireLocation,FireRot);
 					s.Seeking = LockedTarget;
-					s.NumExtraRockets = DupRockets;					
+					s.NumExtraRockets = DupRockets;
 					if ( Angle > 0 )
-						s.Velocity *= (0.9 + 0.2 * FRand());			
+						s.Velocity *= (0.9 + 0.2 * FRand());
 				}
-				else 
+				else
 				{
 					r = Spawn( class'rocketmk2',, '', FireLocation,FireRot);
 					r.NumExtraRockets = DupRockets;
 					if (RocketsLoaded>4 && bTightWad) r.bRing=True;
 					if ( Angle > 0 )
-						r.Velocity *= (0.9 + 0.2 * FRand());			
+						r.Velocity *= (0.9 + 0.2 * FRand());
 				}
 			}
-			else 
+			else
 			{
 				g = Spawn( class 'ut_Grenade',, '', FireLocation,AdjustedAim);
 				g.NumExtraGrenades = DupRockets;
