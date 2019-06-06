@@ -24,7 +24,7 @@ function ServerSellAmmo( Class<Ammunition> AClass );
 final function bool HasWeaponClass( class<Inventory> IC )
 {
 	local Inventory I;
-	
+
 	for ( I=Inventory; I!=None; I=I.Inventory )
 		if( I.Class==IC )
 			return true;
@@ -212,7 +212,7 @@ exec function TossCash( int Amount )
 	// To fix cash tossing exploit.
 	if( CashTossTimer<Level.TimeSeconds && (LongTossCashTimer<Level.TimeSeconds || LongTossCashCount<20) )
 	{
-		Super.TossCash(50);
+		Super.TossCash(Amount);
 
 		CashTossTimer = Level.TimeSeconds+0.1f;
 		if( LongTossCashTimer<Level.TimeSeconds )

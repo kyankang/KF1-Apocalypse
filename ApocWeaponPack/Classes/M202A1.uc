@@ -816,7 +816,7 @@ defaultproperties
     ZoomedDisplayFOVHigh=35.000000
     bHasScope=True
     MagCapacity=4
-    ReloadRate=8.000000
+    ReloadRate=4.000000
     ReloadAnim="Reload"
     ReloadAnimRate=1.000000
     WeaponReloadAnim="Reload_LAW"

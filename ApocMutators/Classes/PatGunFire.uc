@@ -12,7 +12,7 @@ defaultproperties
      ShellEjectBoneName="Barrel"
      DamageType=Class'ApocMutators.DamTypePG'
      DamageMin=65
-     DamageMax=120
+     DamageMax=95
      Momentum=5500.000000
      FireLoopAnim="FireLoop"
      FireEndAnim="FireLoopEnd"
