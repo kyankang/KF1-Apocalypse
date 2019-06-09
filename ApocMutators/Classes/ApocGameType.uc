@@ -42,6 +42,7 @@ var() config WaveInfo ApocWaves[16];
 var() globalconfig array<string> ApocMonsterSquad;
 var() globalconfig array<MClassTypes> ApocMonsterClasses;
 var() globalconfig string ApocEndGameBossClass;
+var() globalconfig int ApocMedicRewardByKill;
 
 // Stub
 static function Texture GetRandomTeamSymbol(int base) { return None; }
@@ -3184,6 +3185,14 @@ function Killed(Controller Killer, Controller Killed, Pawn KilledPawn, class<Dam
 					{
 						StatsAndAchievements.AddMonsterKillsWithBileOrFlame( KilledPawn.Class );
 					}
+
+					if ( KFMonster(KilledPawn) != None && Killed != Killer )
+					{
+						if (KFPlayerReplicationInfo(Killer.PlayerReplicationInfo).ClientVeteranSkill == class'ApocMutators.SRVetFieldMedic')
+						{
+							StatsAndAchievements.AddDamageHealed(ApocMedicRewardByKill);
+						}
+					}
 				}
 
 				if ( KilledPawn.IsA('ZombieCrawler') )
@@ -5498,4 +5507,5 @@ defaultproperties
 	ApocInitialWave=1
 	ApocFinalWave=9
 	ApocEndGameBossClass="KFChar.ZombieBoss_STANDARD"
+	ApocMedicRewardByKill=20
 }
