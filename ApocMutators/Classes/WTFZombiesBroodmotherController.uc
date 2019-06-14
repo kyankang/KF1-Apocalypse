@@ -4,8 +4,7 @@ function ZombieMoan()
 {
     Super(KFMonsterController).ZombieMoan();
 
-    //kyan: removed
-    //WTFZombiesBroodmother(KFM).SpawnBroodlings();
+    WTFZombiesBroodmother(KFM).SpawnBroodlings();
 }
 
 defaultproperties

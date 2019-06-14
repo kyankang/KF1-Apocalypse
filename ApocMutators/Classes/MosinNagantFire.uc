@@ -56,7 +56,7 @@ function PlayFiring()
 defaultproperties
 {
      FireAimedAnim="Fire_Iron"
-     // RecoilRate=0.085000
+     // RecoilRate=0.070000
      maxVerticalRecoilAngle=1500
      maxHorizontalRecoilAngle=500
      FireSoundRef="MosinNagant_S.mosin_fire_m"

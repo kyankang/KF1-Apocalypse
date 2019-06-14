@@ -27,14 +27,14 @@ simulated function bool AllowFire()
 	maxVerticalRecoilAngle=1000;
 	maxHorizontalRecoilAngle=500;
 	FireRate=0.200000;
-	RecoilRate=0.100000;
+	RecoilRate=0.070000;
 	DamageMin=250; //80; //kyan
 	DamageMax=250; //90;
 	bWaitForRelease=True;
 	aimerror=60.000000;
 	Spread=0.002000;
     Weapon.ItemName=Weapon.default.ItemName $ "(Semi-auto)";
-}  
+}
   else
 {
 	DamageType=Class'DamTypeHK417';

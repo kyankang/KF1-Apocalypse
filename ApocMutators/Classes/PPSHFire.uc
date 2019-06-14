@@ -3,6 +3,7 @@
 //=============================================================================
 class PPSHFire extends KFFire;
 
+/*kyan: removed
 // sound
 var 	sound   				FireEndSound;				// The sound to play at the end of the ambient fire sound
 var 	sound   				FireEndStereoSound;    		// The sound to play at the end of the ambient fire sound in first person stereo
@@ -83,7 +84,8 @@ simulated function HandleRecoil(float Rec)
  		    KFPC.SetRecoil(NewRecoilRotation,RecoilRate / (default.FireRate/FireRate));
     	}
  	}
-}
+}*/
+
 /* =================================================================================== *
 * FireLoop
 * 	This state handles looping the firing animations and ambient fire sounds as well
@@ -91,6 +93,7 @@ simulated function HandleRecoil(float Rec)
 *
 * modified by: Ramm 1/17/05
 * =================================================================================== */
+/*kyan: removed
 state FireLoop
 {
     function BeginState()
@@ -190,15 +193,16 @@ simulated function float GetSpread()
     NewSpread *= AccuracyMod;
 
     return NewSpread;
-}
+}*/
 
 defaultproperties
 {
+     /*kyan: removed
      FireEndSound=SoundGroup'KF_MP7Snd.MP7_tail'
      FireEndStereoSound=SoundGroup'KF_MP7Snd.MP7_tailST'
      AmbientFireSoundRadius=500.000000
      AmbientFireSound=SoundGroup'KF_MP7Snd.MP7_FireLoop'
-     AmbientFireVolume=255
+     AmbientFireVolume=255*/
      FireAimedAnim="Fire_Iron"
      FireEndAimedAnim="Fire_Iron_End"
      FireLoopAimedAnim="Fire_Iron_Loop"

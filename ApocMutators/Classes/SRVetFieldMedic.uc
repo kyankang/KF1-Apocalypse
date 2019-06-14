@@ -17,6 +17,8 @@ static function bool IsPerkDamType( class<DamageType> DmgType )
         /////////////////////////////////////////////
         || DmgType == class'DamTypeMedicNade'
         || DmgType == class'DamTypePPSH'
+        || DmgType == class'Weapon_DamTypeM32MedicGrenade'
+        || DmgType == class'Weapon_DamTypeM79MedicGrenade'
         );
 }
 
@@ -62,6 +64,15 @@ static function bool IsPerkSalesPickup( class<Pickup> Item )
         || Item == class'Vest'
         /////////////////////////////////////////////
         || Item == class'Sentry_MedicSentry'
+        || Item == class'Weapon_M32GrenadeLauncher'
+        || Item == class'Weapon_M79GrenadeLauncher'
+        );
+}
+
+static function bool IsPerkHalfSalesPickup( class<Pickup> Item )
+{
+    return(Item == class'Weapon_M32Pickup'
+        || Item == class'Weapon_M79Pickup'
         );
 }
 
@@ -120,6 +131,8 @@ static function float GetCostScaling( KFPlayerReplicationInfo KFPRI, class<Picku
 {
     if ( IsPerkSalesPickup(Item) )
         return 0.3; // 70%
+    else if ( IsPerkHalfSalesPickup(Item) )
+        return 0.5; // 50%
     return 1.0;
 }
 

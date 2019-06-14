@@ -17,7 +17,7 @@ defaultproperties
      ItemShortName="PPSh-41"
      AmmoItemName="7.62x25mm Tokarev"
      AmmoMesh=StaticMesh'KillingFloorStatics.L85Ammo'
-     CorrespondingPerkIndex=3
+     CorrespondingPerkIndex=0
      EquipmentCategoryID=3
      InventoryType=Class'ApocMutators.PPSH41x'
      PickupMessage="You got the PPSH-41"

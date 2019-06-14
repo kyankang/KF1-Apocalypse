@@ -3,7 +3,7 @@ class VALDTFire extends KFFire;
 defaultproperties
 {
      FireAimedAnim="Fire"
-     RecoilRate=0.150000
+     RecoilRate=0.070000
      maxVerticalRecoilAngle=400
      maxHorizontalRecoilAngle=200
      bRecoilRightOnly=True

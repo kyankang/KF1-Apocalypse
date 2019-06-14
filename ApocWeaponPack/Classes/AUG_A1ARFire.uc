@@ -6,7 +6,7 @@ class AUG_A1ARFire extends KFFire;
 defaultproperties
 {
      FireAimedAnim="Idle_Iron"
-     RecoilRate=0.150000
+     RecoilRate=0.070000
      maxVerticalRecoilAngle=500
      maxHorizontalRecoilAngle=250
      ShellEjectClass=Class'ROEffects.KFShellEjectBullpup'

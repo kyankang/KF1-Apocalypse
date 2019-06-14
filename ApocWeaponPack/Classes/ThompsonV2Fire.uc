@@ -3,7 +3,7 @@ class ThompsonV2Fire extends KFFire;
 defaultproperties
 {
      FireAimedAnim="Fire"
-     RecoilRate=0.150000
+     RecoilRate=0.070000
      maxVerticalRecoilAngle=500
      maxHorizontalRecoilAngle=250
      bRecoilRightOnly=True

@@ -95,7 +95,7 @@ defaultproperties
     ExplodeSounds(0)=Sound'PP19_Snd.PP19_explode'
     ExplodeSounds(1)=Sound'PP19_Snd.PP19_explode'
     ExplodeSounds(2)=Sound'PP19_Snd.PP19_explode'
-    Damage=40.000000
+    Damage=20.000000
     DamageRadius=1.000000 //10.000000 kyan
     MomentumTransfer=30000.000000
     MyDamageType=Class'DamTypePP19'

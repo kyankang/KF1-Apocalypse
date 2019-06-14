@@ -13,7 +13,7 @@ class WTFZombiesBroodmother extends ZEDS_ZombieCrawler;
 
 #exec obj load file=WTFTex.utx
 
-const NUM_BROODLINGS = 3;
+const NUM_BROODLINGS = 5;
 var WTFZombiesBroodling MyBroodling[NUM_BROODLINGS];
 
 function SpawnBroodlings()

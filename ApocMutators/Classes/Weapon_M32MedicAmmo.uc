@@ -8,7 +8,7 @@ class Weapon_M32MedicAmmo extends M32Ammo;
 
 defaultproperties
 {
-     MaxAmmo=20
+     MaxAmmo=60
      InitialAmount=6
      AmmoPickupAmount=6
      PickupClass=Class'ApocMutators.Weapon_M32MedicAmmoPickup'

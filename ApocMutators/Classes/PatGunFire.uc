@@ -4,7 +4,7 @@ defaultproperties
 {
      FireEndSound=Sound'KF_BasePatriarch.Attack.Kev_MG_TurbineWindDown'
      AmbientFireSound=Sound'KF_BasePatriarch.Attack.Kev_MG_GunfireLoop'
-     RecoilRate=0.150000
+     RecoilRate=0.070000
      maxVerticalRecoilAngle=20
      maxHorizontalRecoilAngle=15
      RecoilVelocityScale=0.000000

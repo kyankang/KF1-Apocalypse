@@ -18,7 +18,7 @@ function DoFireEffect()
 defaultproperties
 {
      EffectiveRange=25000.000000
-     RecoilRate=0.100000
+     RecoilRate=0.070000
      maxVerticalRecoilAngle=1400
      maxHorizontalRecoilAngle=90
      FireAimedAnim="Fire"

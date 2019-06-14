@@ -49,7 +49,7 @@ defaultproperties
      ProjSpawnOffset=(Y=0.000000,Z=0.000000)
 
      EffectiveRange=25000.000000
-     RecoilRate=0.1
+     RecoilRate=0.070000
      maxVerticalRecoilAngle=4000
      maxHorizontalRecoilAngle=90
      bWaitForRelease=True

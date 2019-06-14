@@ -88,7 +88,7 @@ defaultproperties
 {
 	 ShellEjectClass=Class'ROEffects.KFShellEjectMac'
 	 ShellEjectBoneName="Shell_eject"
-	 RecoilRate=0.180000
+	 RecoilRate=0.070000
      maxVerticalRecoilAngle=1000
      maxHorizontalRecoilAngle=300
      FireAimedAnim="Iron_Idle" // "Fire_Iron"

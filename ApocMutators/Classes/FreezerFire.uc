@@ -38,7 +38,7 @@ event ModeDoFire()
 
 defaultproperties
 {
-     RecoilRate=0.130000
+     RecoilRate=0.070000
      maxVerticalRecoilAngle=200
      maxHorizontalRecoilAngle=75
      FireAimedAnim="Fire_Iron"

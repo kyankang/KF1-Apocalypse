@@ -124,7 +124,7 @@ function FlashMuzzleFlash()
 defaultproperties
 {
 	FireAimedAnim="Fire_Iron"
-	RecoilRate=0.200000
+	RecoilRate=0.070000
 	maxVerticalRecoilAngle=800
 	maxHorizontalRecoilAngle=250
 	ShellEjectClass=Class'ApocMutators.KFShellEjectL96AWPLLI'

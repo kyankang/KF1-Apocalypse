@@ -52,7 +52,7 @@ function FlashMuzzleFlash()
 defaultproperties
 {
      EffectiveRange=25000.000000
-     RecoilRate=0.100000
+     RecoilRate=0.070000
      maxVerticalRecoilAngle=4000
      maxHorizontalRecoilAngle=90
      FireAimedAnim="Fire"
