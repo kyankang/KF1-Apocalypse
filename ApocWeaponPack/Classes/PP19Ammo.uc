@@ -5,7 +5,7 @@ class PP19Ammo extends KFAmmunition;
 defaultproperties
 {
      AmmoPickupAmount=53
-     MaxAmmo=1200
+     MaxAmmo=2000
      InitialAmount=120
      PickupClass=Class'PP19AmmoPickup'
      IconMaterial=Texture'KillingFloorHUD.Generic.HUD'

@@ -17,8 +17,6 @@ static function bool IsPerkDamType( class<DamageType> DmgType )
         /////////////////////////////////////////////
         || DmgType == class'DamTypeMedicNade'
         || DmgType == class'DamTypePPSH'
-        || DmgType == class'Weapon_DamTypeM32MedicGrenade'
-        || DmgType == class'Weapon_DamTypeM79MedicGrenade'
         );
 }
 
@@ -64,15 +62,13 @@ static function bool IsPerkSalesPickup( class<Pickup> Item )
         || Item == class'Vest'
         /////////////////////////////////////////////
         || Item == class'Sentry_MedicSentry'
-        || Item == class'Weapon_M32GrenadeLauncher'
-        || Item == class'Weapon_M79GrenadeLauncher'
         );
 }
 
 static function bool IsPerkHalfSalesPickup( class<Pickup> Item )
 {
-    return(Item == class'Weapon_M32Pickup'
-        || Item == class'Weapon_M79Pickup'
+    return(Item == class'Weapon_M32MedicPickup'
+        || Item == class'Weapon_M79MedicPickup'
         );
 }
 
@@ -103,7 +99,7 @@ static function float GetHealPotency( KFPlayerReplicationInfo KFPRI )
 // Reduce damage when wearing Armor
 static function float GetBodyArmorDamageModifier( KFPlayerReplicationInfo KFPRI )
 {
-    return 2.0 - GetScale( KFPRI, 10, 75, 5 ); // 10~75%
+    return 2.0 - GetScale( KFPRI, 10, 90, 5 ); // 10~90%
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -181,7 +177,7 @@ static function int ReduceDamage( KFPlayerReplicationInfo KFPRI, KFPawn Injured,
 // Give Extra Items as Default
 static function AddDefaultInventory( KFPlayerReplicationInfo KFPRI, Pawn P )
 {
-    P.ShieldStrength = 100;
+    P.ShieldStrength = 200;
     P.HealthMax = 100 + KFPRI.ClientVeteranSkillLevel;
     KFHumanPawn(P).CreateInventoryVeterancy("ApocMutators.WTFEquipFlaregun", 0);
     KFHumanPawn(P).CreateInventoryVeterancy("ApocMutators.WTFEquipGlowstick", 0);

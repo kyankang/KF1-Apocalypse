@@ -6,7 +6,7 @@ class PPSHAmmo extends KFAmmunition;
 defaultproperties
 {
      AmmoPickupAmount=142
-     MaxAmmo=425
+     MaxAmmo=600
      InitialAmount=213
      PickupClass=Class'ApocMutators.PPSHAmmoPickup'
      IconMaterial=Texture'KillingFloorHUD.Generic.HUD'

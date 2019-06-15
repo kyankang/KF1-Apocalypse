@@ -3,7 +3,7 @@ class PP19Pickup extends KFWeaponPickup;
 defaultproperties
 {
      Weight=4.000000
-     cost=4500
+     cost=4000
      AmmoCost=10 //kyan
      BuyClipSize=53
      PowerValue=50
