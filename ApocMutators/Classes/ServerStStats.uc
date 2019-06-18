@@ -254,8 +254,10 @@ function ServerSelectPerk( Class<SRVeterancyTypes> VetType )
 
             if( KFHumanPawn(PlayerOwner.Pawn)!=None )
             {
-	            //kyan: add
-            	KFHumanPawn(PlayerOwner.Pawn).HealthMax = 100 + Rep.CachePerks[i].CurrentLevel-1;
+                //kyan: add
+                if (VetType == Class'SRVetBerserker')
+                    KFHumanPawn(PlayerOwner.Pawn).HealthMax = 150 + Rep.CachePerks[i].CurrentLevel-1;
+            	else KFHumanPawn(PlayerOwner.Pawn).HealthMax = 100 + Rep.CachePerks[i].CurrentLevel-1;
                 PlayerOwner.SelectedVeterancy.default.VeterancyName = VetType.Default.VeterancyName;
 
 	            KFHumanPawn(PlayerOwner.Pawn).VeterancyChanged();
