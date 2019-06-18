@@ -5,7 +5,7 @@ class UMP45Ammo extends KFAmmunition;
 defaultproperties
 {
      AmmoPickupAmount=25
-     MaxAmmo=1200
+     MaxAmmo=1600
      InitialAmount=120
      PickupClass=Class'UMP45AmmoPickup'
      IconMaterial=Texture'KillingFloorHUD.Generic.HUD'

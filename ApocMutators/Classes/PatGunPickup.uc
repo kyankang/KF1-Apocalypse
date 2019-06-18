@@ -12,7 +12,7 @@ class PatGunPickup extends KFWeaponPickup;
 defaultproperties
 {
 	Weight=15.000000
-	cost=4000
+	cost=6000
 	AmmoCost=10
 	BuyClipSize=300
 	PowerValue=100

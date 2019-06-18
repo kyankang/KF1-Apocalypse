@@ -116,7 +116,7 @@ static function int ReduceDamage( KFPlayerReplicationInfo KFPRI, KFPawn Injured,
 static function AddDefaultInventory( KFPlayerReplicationInfo KFPRI, Pawn P )
 {
     P.ShieldStrength = 100;
-    P.HealthMax = 100 + KFPRI.ClientVeteranSkillLevel;
+    P.HealthMax = 150 + KFPRI.ClientVeteranSkillLevel;
     KFHumanPawn(P).CreateInventoryVeterancy("ApocMutators.WTFEquipFlaregun", 0);
     KFHumanPawn(P).CreateInventoryVeterancy("ApocMutators.WTFEquipGlowstick", 0);
     KFHumanPawn(P).CreateInventoryVeterancy("KFMod.Axe", GetCostScaling(KFPRI, class'AxePickup'));
@@ -134,7 +134,7 @@ static function string GetCustomLevelInfo( byte Level )
     if (Level<100)
         ReplaceText(S, "%m", GetPercentStr(0.1 + FMin(0.2, 0.05 * float(Level)))); // melee movement: 10~30%
     else ReplaceText(S, "%m", GetPercentStr(0.1 + FMin(0.35, 0.05 * float(Level)))); // melee movement: 10~45%
-    ReplaceText(S, "%l", GetPercentStr(0.4)); // reduce damage: 40%
+    ReplaceText(S, "%l", GetPercentStr(0.4)); // reduce damage: 45%
     //ReplaceText(S, "%d", GetPercentStr(0.1 + FMin(0.6, 0.05 * float(Level)))); // discount: 10~70%
     ReplaceText(S, "%d", GetPercentStr(0.5)); // discount: 50%
     return S;
