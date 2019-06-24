@@ -60,4 +60,6 @@ defaultproperties
 	 AmmoClass=Class'ApocMutators.WTFEquipMP7M2Ammo'
 	 aimerror=15.000000
 	 Spread=0.006000
+	 DamageMin=200
+	 DamageMax=250
 }
