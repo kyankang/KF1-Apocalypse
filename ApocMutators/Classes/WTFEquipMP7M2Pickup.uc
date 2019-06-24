@@ -2,7 +2,7 @@ class WTFEquipMP7M2Pickup extends MP7MPickup;
 
 defaultproperties
 {
-     cost=2000 //kyan
+     cost=4000 //kyan
      AmmoCost=10 //kyan
      Description="A deadly weapon."
      ItemName="MP7M2 Medic Gun"

@@ -2,7 +2,7 @@ class WTFEquipMP7M2a extends MP7MMedicGun;
 
 defaultproperties
 {
-     MagCapacity=50
+     MagCapacity=75
      FireModeClass(0)=Class'ApocMutators.WTFEquipMP7M2Fire'
      FireModeClass(1)=Class'ApocMutators.WTFEquipMP7M2AltFire'
      Description="A deadly weapon"
